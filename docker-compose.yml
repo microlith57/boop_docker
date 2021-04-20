@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - ./credentials.yml.enc:/usr/src/app/config/credentials.yml.enc
+      - ./master.key:/usr/src/app/config/master.key:ro
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
