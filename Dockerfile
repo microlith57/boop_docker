@@ -16,5 +16,6 @@ RUN rails assets:precompile
 
 EXPOSE 3000
 ENV RAILS_ENV production
+ENV NODE_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 CMD [ "rails", "server", "-e", "production", "-p", "3000", "-b", "0.0.0.0", "--log-to-stdout" ]
