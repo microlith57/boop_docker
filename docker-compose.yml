@@ -2,21 +2,19 @@ version: '3'
 services:
   db:
     image: postgres
-    volumes:
-      - ./db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USERNAME=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD
   web:
-    build: .
+    image: ghcr.io/microlith57/boop_docker/boop:latest
     ports:
       - '3000:3000'
     depends_on:
       - db
     volumes:
       - ./credentials.yml.enc:/usr/src/app/config/credentials.yml.enc
-      - ./master.key:/usr/src/app/config/master.key
     environment:
       - POSTGRES_HOST=db
-      - POSTGRES_USERNAME=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USERNAME
+      - POSTGRES_PASSWORD
+      - RAILS_MASTER_KEY
