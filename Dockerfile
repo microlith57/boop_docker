@@ -2,8 +2,10 @@ FROM ruby:3.0.1
 
 WORKDIR /usr/src/app
 
-RUN apt-get update -qq \
-  && apt-get install -y --no-install-recommends nodejs npm postgresql-client \
+RUN  apt-get update -qq \
+  && apt-get install -y --no-install-recommends postgresql-client \
+  && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+  && apt-get install -y nodejs \
   && rm -rf /var/lib/apt/lists/*
 RUN npm install --global yarn
 
